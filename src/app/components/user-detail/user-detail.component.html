@@ -1,0 +1,106 @@
+<div class="user-detail-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading user details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-state">
+    <h2>Error</h2>
+    <p>{{ error }}</p>
+    <button (click)="goBack()" class="back-btn">Back to Users</button>
+  </div>
+
+  <!-- User Details -->
+  <div *ngIf="user && !loading" class="user-details">
+    <div class="header">
+      <button (click)="goBack()" class="back-btn">← Back to Users</button>
+      <h1>User Details</h1>
+    </div>
+
+    <div class="user-card">
+      <div class="user-avatar">
+        <div class="avatar-placeholder">
+          {{ user.name.charAt(0).toUpperCase() }}
+        </div>
+      </div>
+
+      <div class="user-info">
+        <div class="info-section">
+          <h2>Personal Information</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Full Name:</label>
+              <span>{{ user.name }}</span>
+            </div>
+            <div class="info-item">
+              <label>Username:</label>
+              <span>{{ user.username }}</span>
+            </div>
+            <div class="info-item">
+              <label>Email:</label>
+              <span>{{ user.email }}</span>
+            </div>
+            <div class="info-item">
+              <label>Phone:</label>
+              <span>{{ user.phone }}</span>
+            </div>
+            <div class="info-item">
+              <label>Website:</label>
+              <span>{{ user.website }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h2>Address</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Street:</label>
+              <span>{{ user.address.street }}</span>
+            </div>
+            <div class="info-item">
+              <label>Suite:</label>
+              <span>{{ user.address.suite }}</span>
+            </div>
+            <div class="info-item">
+              <label>City:</label>
+              <span>{{ user.address.city }}</span>
+            </div>
+            <div class="info-item">
+              <label>Zipcode:</label>
+              <span>{{ user.address.zipcode }}</span>
+            </div>
+            <div class="info-item full-width">
+              <label>Full Address:</label>
+              <span>{{ getFullAddress() }}</span>
+            </div>
+            <div class="info-item">
+              <label>Coordinates:</label>
+              <span>{{ user.address.geo.lat }}, {{ user.address.geo.lng }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h2>Company</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Company Name:</label>
+              <span>{{ user.company.name }}</span>
+            </div>
+            <div class="info-item full-width">
+              <label>Catch Phrase:</label>
+              <span>{{ user.company.catchPhrase }}</span>
+            </div>
+            <div class="info-item full-width">
+              <label>Business:</label>
+              <span>{{ user.company.bs }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

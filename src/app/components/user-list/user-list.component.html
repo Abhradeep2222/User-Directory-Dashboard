@@ -1,0 +1,77 @@
+<div class="user-list-container">
+  <h1>User Directory Dashboard</h1>
+  
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-box">
+      <input 
+        type="text" 
+        placeholder="Search by name or email..." 
+        (input)="onSearchChange($event)"
+        class="search-input">
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="table-container">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th (click)="toggleSort('name')" class="sortable">
+            Name {{ getSortIcon('name') }}
+          </th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th (click)="toggleSort('company')" class="sortable">
+            Company {{ getSortIcon('company') }}
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers" class="user-row">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.company.name }}</td>
+          <td>
+            <button 
+              (click)="navigateToUser(user.id)" 
+              class="view-btn">
+              View Details
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="paginatedUsers.length === 0">
+          <td colspan="5" class="no-results">No users found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button 
+      (click)="goToPage(currentPage - 1)" 
+      [disabled]="currentPage === 1"
+      class="page-btn">
+      Previous
+    </button>
+    
+    <span *ngFor="let page of [].constructor(totalPages); let i = index">
+      <button 
+        (click)="goToPage(i + 1)" 
+        [class.active]="currentPage === i + 1"
+        class="page-btn">
+        {{ i + 1 }}
+      </button>
+    </span>
+    
+    <button 
+      (click)="goToPage(currentPage + 1)" 
+      [disabled]="currentPage === totalPages"
+      class="page-btn">
+      Next
+    </button>
+  </div>
+</div>
